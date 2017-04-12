@@ -2,14 +2,18 @@ import XCTest
 @testable import Fetcher
 
 class GcdEtudeTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        XCTAssertEqual(Fetcher().text, "Hello, World!")
+
+
+    func testInitReceivesName() {
+        XCTAssertEqual(Fetcher(name: "name").name, "name")
+    }
+    
+    func testReturnsDataWithNameInit() {
+            XCTAssertEqual(Fetcher(name: "name").fetch(), ["name": "data for name"])
     }
 
-
     static var allTests = [
-        ("testExample", testExample),
+        ("testInitReceivesName", testInitReceivesName),
+        ("testReturnsDataWithNameInit", testReturnsDataWithNameInit)
     ]
 }
