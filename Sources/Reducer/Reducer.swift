@@ -5,7 +5,7 @@ public class Reducer {
   }
   public func reduce(_ fetches: [String: FetchResult]) -> String {
     var result = ""
-    for (key, value) in fetches {
+    for (_, value) in fetches {
       result += value.fetcherName
     }
     return result
