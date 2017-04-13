@@ -9,7 +9,7 @@ class GcdEtudeTests: XCTestCase {
     }
     
     func testReturnsDataWithNameInit() {
-            XCTAssertEqual(Fetcher(name: "name").fetch(), ["name": "data for name"])
+            XCTAssertEqual(Fetcher(name: "name").fetch(), "data for name")
     }
 
     func testCustomStringConvertible() {

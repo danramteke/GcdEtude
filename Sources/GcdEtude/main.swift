@@ -28,7 +28,8 @@ func oneTurn() {
       let result = fetcher.fetch()
       
       DispatchQueue.main.async {
-        print("hello")
+        latestFetches["ASdf"] = "asdf"
+        print(latestFetches)
       }
        
 
@@ -48,4 +49,5 @@ while true {
   usleep(2 * oneSecond)
   
   oneTurn()
+
 }

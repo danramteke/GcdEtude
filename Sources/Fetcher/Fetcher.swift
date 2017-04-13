@@ -6,10 +6,10 @@ public class Fetcher {
   }
 
 
-  public func fetch() -> [String: String] {
+  public func fetch() -> String {
     // pretend we hit an external data source
     print("Fetching: \(self.name)")
-   return [self.name: "data for \(self.name)"]
+   return "data for \(self.name)"
   }
 }
 
