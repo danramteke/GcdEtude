@@ -19,18 +19,21 @@ let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueu
 
 var latestFetches = [String: String]()
 
+func printLatestFetches() {
+  print("latestFetches: [")
+  for (key, value) in latestFetches {
+    print("  \(key): \(value)")
+  }
+  print("]")
+}
 
 
 func oneTurn() {
-  print("latest fetches: \(latestFetches)")
+  printLatestFetches()
   for fetcher in fetchers {
     fetcherQueue.async(execute: DispatchWorkItem(block: {
       let result = fetcher.fetch()
-      
-      DispatchQueue.main.async {
-        latestFetches["ASdf"] = "asdf"
-        print(latestFetches)
-      }
+      latestFetches[fetcher.name] = result
        
 
       
@@ -51,3 +54,4 @@ while true {
   oneTurn()
 
 }
+

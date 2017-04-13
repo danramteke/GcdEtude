@@ -1,5 +1,5 @@
 public class Fetcher {
-  let name: String
+  public let name: String
   
   public init(name: String) {
     self.name = name
