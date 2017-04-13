@@ -17,13 +17,35 @@ let fetchers = [
 
 let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
 
-while true {
-  let oneSecond: UInt32 = 1000000
-  usleep(3 * oneSecond)
+var latestFetches = [String: String]()
+
+
+
+func oneTurn() {
+  print("latest fetches: \(latestFetches)")
   for fetcher in fetchers {
     fetcherQueue.async(execute: DispatchWorkItem(block: {
-      fetcher.fetch()
+      let result = fetcher.fetch()
+      
+      DispatchQueue.main.async {
+        print("hello")
+      }
+       
+
+      
     }))
   }
-  print("sleeping")
+  
+   
+}
+
+
+
+oneTurn()
+
+let oneSecond: UInt32 = 1000000
+while true {
+  usleep(2 * oneSecond)
+  
+  oneTurn()
 }
