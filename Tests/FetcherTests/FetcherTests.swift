@@ -5,11 +5,11 @@ class GcdEtudeTests: XCTestCase {
 
 
     func testInitReceivesName() {
-        XCTAssertEqual(Fetcher(name: "name").name, "name")
+        XCTAssertEqual(BasicFetcher(name: "name").name, "name")
     }
     
     func testReturnsDataWithNameInit() {
-            XCTAssertEqual(Fetcher(name: "name").fetch(), ["name": "data for name"])
+            XCTAssertEqual(BasicFetcher(name: "name").fetch(), ["name": "data for name"])
     }
 
     static var allTests = [

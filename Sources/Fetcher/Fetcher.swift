@@ -1,12 +1,12 @@
-class Fetcher {
+public class BasicFetcher {
   let name: String
   
-  init(name: String) {
+  public init(name: String) {
     self.name = name
   }
 
 
-  func fetch() -> [String: String] {
+  public func fetch() -> [String: String] {
     // pretend we hit an external data source
    return [self.name: "data for \(self.name)"]
   }

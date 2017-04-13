@@ -3,5 +3,8 @@
 import PackageDescription
 
 let package = Package(
-    name: "GcdEtude"
+    name: "GcdEtude",
+    targets: [
+        Target(name: "GcdEtude", dependencies: ["Fetcher", "Reducer"]),
+    ]
 )
