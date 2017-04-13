@@ -2,53 +2,64 @@
 import Dispatch
 import Fetcher
 import Sleeper
-
+import Reducer
 
 print("gcd etude")
 
+class Mainer {
+  let fetchers = [
+    Fetcher(name: "Foo", delay: 2),
+    Fetcher(name: "Bar", delay: 2),
+    Fetcher(name: "Cow", delay: 2),
+    Fetcher(name: "Moose", delay: 2),
+  ]
 
-let fetchers = [
-  Fetcher(name: "Foo", delay: 2),
-  Fetcher(name: "Bar", delay: 2),
-  Fetcher(name: "Cow", delay: 2),
-  Fetcher(name: "Moose", delay: 2),
-]
 
+  let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
+  let reducerQueue = DispatchQueue(label: "ReducerQueue", target: nil)
 
-let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
-
-var latestFetches = [String: FetchResult]()
-
-func printLatestFetches() {
-  print("latestFetches: [")
-  for (key, value) in latestFetches {
-    print("  \(key): \(value)")
+  var latestFetches = [String: FetchResult]()
+  var latestReduction = "" {
+    didSet {
+      print("new reduction! : \(latestReduction)")
+    }
   }
-  print("]")
+
+  func printLatestFetches() {
+    print("latestFetches: [")
+    for (key, value) in latestFetches {
+      print("  \(key): \(value)")
+    }
+    print("]")
+  }
+
+
+  func oneTurn() {
+    printLatestFetches()
+    for fetcher in self.fetchers {
+      self.fetcherQueue.async {
+        let result = fetcher.fetch()
+        self.latestFetches[fetcher.name] = result
+      
+      
+        self.reducerQueue.async {
+          self.latestReduction = Reducer().reduce(self.latestFetches)
+        }
+      }
+    }
+  }
+
 }
 
+let mainer = Mainer()
 
-func oneTurn() {
-  printLatestFetches()
-  for fetcher in fetchers {
-    fetcherQueue.async(execute: DispatchWorkItem(block: {
-      let result = fetcher.fetch()
-      latestFetches[fetcher.name] = result
-    }))
-  }
-  
-   
-}
-
-
-
-oneTurn()
+mainer.oneTurn()
 
 
 while true {
-  Sleeper.sleep(seconds: 10)
+  Sleeper.sleep(seconds: 4)
   
-  oneTurn()
+  mainer.oneTurn()
 
 }
 
