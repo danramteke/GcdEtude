@@ -9,9 +9,9 @@ print("gcd etude")
 class Mainer {
   let fetchers = [
     Fetcher(name: "Foo", delay: 1),
-    Fetcher(name: "Bar", delay: 2),
-    Fetcher(name: "Cow", delay: 2),
-    Fetcher(name: "Moose", delay: 3),
+    Fetcher(name: "Bar", delay: 1),
+    Fetcher(name: "Cow", delay: 1),
+    Fetcher(name: "Moose", delay: 1),
   ]
 
 
@@ -62,5 +62,3 @@ while true {
   mainer.oneTurn()
 
 }
-
-//everytime a fetcher returns, recompute the reduction
