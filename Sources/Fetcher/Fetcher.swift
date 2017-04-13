@@ -1,4 +1,4 @@
-public class BasicFetcher {
+public class Fetcher {
   let name: String
   
   public init(name: String) {

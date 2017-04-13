@@ -2,6 +2,6 @@ import Fetcher
 
 print("gcd etude")
 
-let f = BasicFetcher(name: "asdf")
+let f = Fetcher(name: "asdf")
 
 print(f)
