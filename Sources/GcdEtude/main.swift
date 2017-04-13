@@ -25,7 +25,7 @@ let fetchers = [
 ]
 
 let fetcherGroup = DispatchGroup()
-let fetcherQueue = DispatchQueue(label: "FetcherQueue", target: nil)
+let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
 
 while true {
   let oneSecond: UInt32 = 1000000
