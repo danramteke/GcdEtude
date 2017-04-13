@@ -1,17 +1,17 @@
 
 import Dispatch
 import Fetcher
-
+import Sleeper
 
 
 print("gcd etude")
 
 
 let fetchers = [
-  Fetcher(name: "Foo"),
-  Fetcher(name: "Bar"),
-  Fetcher(name: "Cow"),
-  Fetcher(name: "Moose"),
+  Fetcher(name: "Foo", delay: 2),
+  Fetcher(name: "Bar", delay: 2),
+  Fetcher(name: "Cow", delay: 2),
+  Fetcher(name: "Moose", delay: 2),
 ]
 
 
@@ -44,11 +44,12 @@ func oneTurn() {
 
 oneTurn()
 
-let oneSecond: UInt32 = 1000000
+
 while true {
-  usleep(2 * oneSecond)
+  Sleeper.sleep(seconds: 10)
   
   oneTurn()
 
 }
 
+//everytime a fetcher returns, recompute the reduction
