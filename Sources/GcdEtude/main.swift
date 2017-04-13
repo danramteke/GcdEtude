@@ -8,10 +8,10 @@ print("gcd etude")
 
 class Mainer {
   let fetchers = [
-    Fetcher(name: "Foo", delay: 2),
+    Fetcher(name: "Foo", delay: 1),
     Fetcher(name: "Bar", delay: 2),
     Fetcher(name: "Cow", delay: 2),
-    Fetcher(name: "Moose", delay: 2),
+    Fetcher(name: "Moose", delay: 3),
   ]
 
 

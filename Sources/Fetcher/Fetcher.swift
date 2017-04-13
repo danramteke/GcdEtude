@@ -11,7 +11,7 @@ public class Fetcher {
 
 
   public func fetch() -> FetchResult {
-   // Sleeper.sleep(seconds: delay)
+    Sleeper.sleep(seconds: delay)
 
     let data = "data for \(self.name)"
     return FetchResult(fetcherName: self.name, data: data)
