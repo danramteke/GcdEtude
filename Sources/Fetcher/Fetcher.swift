@@ -8,6 +8,7 @@ public class Fetcher {
 
   public func fetch() -> [String: String] {
     // pretend we hit an external data source
+    print("Fetching: \(self.name)")
    return [self.name: "data for \(self.name)"]
   }
 }

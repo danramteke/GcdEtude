@@ -1,5 +1,6 @@
 
 import Dispatch
+import Fetcher
 
 #if os(Linux)
     import Glibc
@@ -16,14 +17,23 @@ import Dispatch
 print("gcd etude")
 
 
+let fetchers = [
+  Fetcher(name: "Foo"),
+  Fetcher(name: "Bar"),
+  Fetcher(name: "Cow"),
+  Fetcher(name: "Moose"),
+]
 
-//
-//let scheduler = Scheduler()
-//scheduler.run()
-
+let fetcherGroup = DispatchGroup()
+let fetcherQueue = DispatchQueue(label: "FetcherQueue", target: nil)
 
 while true {
   let oneSecond: UInt32 = 1000000
   usleep(3 * oneSecond)
+  for fetcher in fetchers {
+    fetcherQueue.async(execute: DispatchWorkItem(block: {
+      fetcher.fetch()
+    }))
+  }
   print("sleeping")
 }
