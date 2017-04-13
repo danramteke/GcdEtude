@@ -3,6 +3,7 @@ import Dispatch
 import Fetcher
 import Sleeper
 import Reducer
+import FetchResult
 
 print("gcd etude")
 

@@ -1,4 +1,4 @@
-import Fetcher
+import FetchResult
 
 public class Reducer {
   public init() {

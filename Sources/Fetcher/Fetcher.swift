@@ -1,4 +1,5 @@
 import Sleeper
+import FetchResult
 
 public class Fetcher {
   public let name: String
