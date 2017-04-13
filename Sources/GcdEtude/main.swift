@@ -16,7 +16,7 @@ class Mainer {
 
 
   let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
-  let reducerQueue = DispatchQueue(label: "ReducerQueue", target: nil)
+  let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
 
   var latestFetches = [String: FetchResult]()
   var latestReduction = "" {
