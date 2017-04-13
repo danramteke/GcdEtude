@@ -1,7 +1,9 @@
-FROM alpine:3.5
+FROM swift:3.1
 
-RUN mkdir -p /usr/app
-WORKDIR /usr/app
-COPY .build/release/GcdEtude /usr/app/
+RUN mkdir -p /usr/GcdEtude
+WORKDIR /usr/GcdEtude/
+COPY . /usr/GcdEtude/
 
-CMD ["/usr/app/GcdEtude"]
+RUN swift build -c release
+
+CMD ["/usr/GcdEtude/.build/release/GcdEtude"]

@@ -1,0 +1,7 @@
+.git
+.build
+.gitignore
+.DS_Store
+/Packages
+/*.xcodeproj
+
