@@ -6,10 +6,12 @@ public class Fetcher {
   }
 
 
-  public func fetch() -> String {
+  public func fetch() -> FetchResult {
     // pretend we hit an external data source
-    print("Fetching: \(self.name)")
-   return "data for \(self.name)"
+
+    let data = "data for \(self.name)"
+    return FetchResult(fetcherName: self.name, data: data)
+
   }
 }
 

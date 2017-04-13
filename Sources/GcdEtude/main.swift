@@ -17,7 +17,7 @@ let fetchers = [
 
 let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
 
-var latestFetches = [String: String]()
+var latestFetches = [String: FetchResult]()
 
 func printLatestFetches() {
   print("latestFetches: [")
@@ -34,9 +34,6 @@ func oneTurn() {
     fetcherQueue.async(execute: DispatchWorkItem(block: {
       let result = fetcher.fetch()
       latestFetches[fetcher.name] = result
-       
-
-      
     }))
   }
   
