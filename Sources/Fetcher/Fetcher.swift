@@ -11,3 +11,9 @@ public class Fetcher {
    return [self.name: "data for \(self.name)"]
   }
 }
+
+extension Fetcher: CustomStringConvertible {
+  public var description: String {
+    return "Fetcher(name: \(self.name))"
+  }
+}

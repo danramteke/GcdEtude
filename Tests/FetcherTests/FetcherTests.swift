@@ -12,8 +12,13 @@ class GcdEtudeTests: XCTestCase {
             XCTAssertEqual(Fetcher(name: "name").fetch(), ["name": "data for name"])
     }
 
+    func testCustomStringConvertible() {
+      XCTAssertEqual(Fetcher(name: "name").description, "Fetcher(name: name)")
+    }
+
     static var allTests = [
         ("testInitReceivesName", testInitReceivesName),
-        ("testReturnsDataWithNameInit", testReturnsDataWithNameInit)
+        ("testReturnsDataWithNameInit", testReturnsDataWithNameInit),
+        ("testCustomStringConvertible", testCustomStringConvertible),
     ]
 }
