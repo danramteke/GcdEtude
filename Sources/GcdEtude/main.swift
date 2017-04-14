@@ -17,49 +17,22 @@ class Mainer {
 
 
   let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
+  let fetchResultHouse = FetchResultHouse()
   let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
 
-  var latestFetches = [String: FetchResult]()
-  var latestReduction = "" {
-    didSet {
-      print("new reduction! : \(latestReduction)")
+
+
+
+  func go() {
+    let fetcherSchedulers = fetchers.map() { 
+      FetcherScheduler(fetcher: $0, interval: 1000000 * 4, fetcherQueue: self.fetcherQueue, fetchResultHouse: self.fetchResultHouse)
+    }
+    for f in fetcherSchedulers {
+      f.go()
     }
   }
-
-  func printLatestFetches() {
-    print("latestFetches: [")
-    for (key, value) in latestFetches {
-      print("  \(key): \(value)")
-    }
-    print("]")
-  }
-
-
-  func oneTurn() {
-    printLatestFetches()
-    for fetcher in self.fetchers {
-      self.fetcherQueue.async {
-        let result = fetcher.fetch()
-        self.latestFetches[fetcher.name] = result
-      
-      
-        self.reducerQueue.async {
-          self.latestReduction = Reducer().reduce(self.latestFetches)
-        }
-      }
-    }
-  }
-
 }
 
 let mainer = Mainer()
+mainer.go()
 
-mainer.oneTurn()
-
-
-while true {
-  Sleeper.sleep(seconds: 4)
-  
-  mainer.oneTurn()
-
-}
