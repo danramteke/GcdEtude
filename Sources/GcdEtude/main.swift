@@ -23,7 +23,10 @@ class Mainer {
   let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
 
   lazy var fetchResultHouse: FetchResultHouse = FetchResultHouse() { results in
-    print("new results delivered to mainer block \(results.count)")
+    self.reducerQueue.async {
+Reducer().reduce(results)
+
+    }
   }
 
   lazy var fetcherSchedulers: [FetcherScheduler] = {

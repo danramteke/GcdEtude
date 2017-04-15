@@ -8,6 +8,7 @@ public class Reducer {
     for (_, value) in fetches {
       result += value.fetcherName
     }
+    print("[Reducer] \(result)")
     return result
   }
     
