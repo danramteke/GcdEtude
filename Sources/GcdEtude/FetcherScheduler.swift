@@ -22,13 +22,13 @@ class FetcherScheduler {
   
   func go() {
   
-    timer.scheduleRepeating(deadline: .now(), interval: fetcher.interval, leeway: .seconds(1))
+    self.timer.scheduleRepeating(deadline: .now(), interval: fetcher.interval, leeway: .seconds(1))
 
-    timer.setEventHandler { [weak self] in 
+    self.timer.setEventHandler { [weak self] in 
       self?.enqueueFetch()
     }
 
-    timer.resume()
+    self.timer.resume()
 
   }
   
