@@ -5,19 +5,14 @@ import FetchResult
 class FetcherScheduler {
   let fetcher: Fetcher
   
-  weak var fetcherQueue: DispatchQueue?
   weak var fetchResultHouse: FetchResultHouse?
-  
-  let timerQueue: DispatchQueue
   let timer: DispatchSourceTimer
   
   init(fetcher: Fetcher, fetcherQueue: DispatchQueue, fetchResultHouse: FetchResultHouse) {
     self.fetcher = fetcher
-    self.fetcherQueue = fetcherQueue
     self.fetchResultHouse = fetchResultHouse
     
-    self.timerQueue = DispatchQueue(label: "com.firm.app.timer", attributes: .concurrent)
-    self.timer = DispatchSource.makeTimerSource(queue: timerQueue)
+    self.timer = DispatchSource.makeTimerSource(queue: fetcherQueue)
   }
   
   func go() {
@@ -33,10 +28,8 @@ class FetcherScheduler {
   }
   
   private func enqueueFetch() {
-    self.fetcherQueue?.async {
-        let result = self.fetcher.fetch()
-        self.fetchResultHouse?.newResult(key: self.fetcher.name, result: result)
-    }
+    let result = self.fetcher.fetch()
+    self.fetchResultHouse?.newResult(key: self.fetcher.name, result: result)
   }
 }
 
