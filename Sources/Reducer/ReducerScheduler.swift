@@ -14,7 +14,7 @@ public class ReducerScheduler {
   public func reduce(_ results: [String: FetchResult]) {
     print("adding a reduction: \(self.items)")
     let item = DispatchWorkItem() { 
-      Reducer().reduce(results) 
+      _ = Reducer().reduce(results) 
     }
   
     let uuid = UUID()
@@ -29,25 +29,19 @@ public class ReducerScheduler {
   
   private func appendItem(_ item: DispatchWorkItem, forUuid uuid: UUID) {
     self.itemsAccessQueue.async(flags: .barrier) { [weak self] in
+      for (key, value) in self?.items ?? [:] {
+        value.cancel()
+        self?.items.removeValue(forKey: key)
+      }
+      print("dict size: \(self?.items.count ?? 0)")
       self?.items[uuid] = item
     }
   }
   
   private func removeItemForUuid(_ uuid: UUID) {
     itemsAccessQueue.async(flags: .barrier) { [weak self] in
+      print("removing item for key: \(uuid)")
       self?.items.removeValue(forKey: uuid)
-    }
-  }
-  
-  private func cancelCurrentItems() {
-    itemsAccessQueue.async(flags: .barrier) { [weak self] in
-
-      for (key, value) in self?.items ?? [:] {
-        value.cancel()
-        self?.items.removeValue(forKey: key)
-      }
-
-      print(self?.items)
     }
   }
 }
