@@ -15,12 +15,10 @@ class FetcherScheduler {
   }
   
   func go() {
-    print("go for \(self.fetcher.name)")
     enqueueFetch()
     while true {
       usleep(self.fetcher.interval)  
       enqueueFetch()
-      print("sleeping for \(self.fetcher.name)")
     }
   }
   

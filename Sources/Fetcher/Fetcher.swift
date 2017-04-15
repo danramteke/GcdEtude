@@ -13,8 +13,9 @@ public class Fetcher {
 
   public func fetch() -> FetchResult {
 
-    print("fetching \(self.name)")
+    print("[\(self.name)] Fetch started")
     let data = "data for \(self.name)"
+    print("[\(self.name)] Fetch ended")
     return FetchResult(fetcherName: self.name, data: data)
 
   }
