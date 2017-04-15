@@ -9,7 +9,7 @@ import FetchResult
 print("gcd etude")
 
 class Mainer {
-  let semaphore = DispatchGroup()
+
   let fetchers = [
     Fetcher(name: "Foo", interval: .seconds(2)),
     Fetcher(name: "Bar", interval: .seconds(2)),
@@ -17,7 +17,7 @@ class Mainer {
     Fetcher(name: "Moose", interval: .seconds(3)),
   ]
 
-
+  let semaphore = DispatchGroup()
   let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
   let schedulerQueue = DispatchQueue(label: "SchedulerQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
   let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
