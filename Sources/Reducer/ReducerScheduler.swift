@@ -35,6 +35,7 @@ public class ReducerScheduler {
       }
       print("dict size: \(self?.items.count ?? 0)")
       self?.items[uuid] = item
+      print("added a reduction: \(self?.items)")
     }
   }
   
