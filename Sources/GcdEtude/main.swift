@@ -42,13 +42,10 @@ class Mainer {
       schedulerQueue.async {
         f.go()
       }
-      
     }
-    
 
     semaphore.enter()
     semaphore.wait()
-
   }
 }
 

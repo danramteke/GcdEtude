@@ -11,19 +11,22 @@ public class ReducerScheduler {
   
   private let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
 
+  private let reusableIndexSource = ReusableIndexSource()
+
   public func reduce(_ results: [String: FetchResult]) {
     print("adding a reduction: \(self.items)")
     let item = DispatchWorkItem() { 
       _ = Reducer().reduce(results) 
     }
   
-    let uuid = UUID()
+    let uuid = reusableIndexSource.getIndex()
     self.appendItem(item, forUuid: uuid)
 
     self.reducerQueue.async(execute: item)
     
     item.notify(queue: self.itemsAccessQueue) { [weak self] in
       self?.removeItemForUuid(uuid)
+      self?.reusableIndexSource.retire(uuid)
     }
   }
   
@@ -32,6 +35,7 @@ public class ReducerScheduler {
       for (key, value) in self?.items ?? [:] {
         value.cancel()
         self?.items.removeValue(forKey: key)
+        self?.reusableIndexSource.retire(key)
       }
       print("dict size: \(self?.items.count ?? 0)")
       self?.items[uuid] = item
