@@ -24,7 +24,7 @@ class Mainer {
 
   lazy var fetchResultHouse: FetchResultHouse = FetchResultHouse() { results in
     self.reducerQueue.async {
-Reducer().reduce(results)
+      Reducer().reduce(results)
 
     }
   }
