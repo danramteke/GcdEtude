@@ -1,3 +1,4 @@
+import Foundation
 
 import FetchResult
 
@@ -15,6 +16,7 @@ public class Fetcher {
 
     print("[\(self.name)] Fetch started")
     let data = "data for \(self.name)"
+          usleep(2 * 1000000)  
     print("[\(self.name)] Fetch ended")
     return FetchResult(fetcherName: self.name, data: data)
 
