@@ -1,4 +1,5 @@
 import FetchResult
+import Foundation
 
 public class Reducer {
   public init() {
@@ -8,6 +9,8 @@ public class Reducer {
     for (_, value) in fetches {
       result += value.fetcherName
     }
+    
+    usleep(4 * 1000000) //simulate long running task
     print("[Reducer] \(result)")
     return result
   }

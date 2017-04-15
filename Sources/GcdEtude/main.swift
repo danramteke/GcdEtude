@@ -21,12 +21,11 @@ class Mainer {
   let fetcherQueue = DispatchQueue(label: "FetcherQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
   let schedulerQueue = DispatchQueue(label: "SchedulerQueue", attributes: DispatchQueue.Attributes.concurrent, target: nil)
   let reducerQueue = DispatchQueue(label: "ReducerQueue", target: DispatchQueue.global(qos: .userInitiated))
+  
+  let reducerScheduler = ReducerScheduler()
 
   lazy var fetchResultHouse: FetchResultHouse = FetchResultHouse() { results in
-    self.reducerQueue.async {
-      Reducer().reduce(results)
-
-    }
+    self.reducerScheduler.reduce(results)
   }
 
   lazy var fetcherSchedulers: [FetcherScheduler] = {
