@@ -9,6 +9,7 @@ import FetchResult
 print("gcd etude")
 
 class Mainer {
+  let semaphore = DispatchGroup()
   let fetchers = [
     Fetcher(name: "Foo", interval: 1000000 * 2),
     Fetcher(name: "Bar", interval: 1000000 * 2),
@@ -42,7 +43,10 @@ class Mainer {
       
     }
     
-    while true { }
+
+    semaphore.enter()
+    semaphore.wait()
+
   }
 }
 
