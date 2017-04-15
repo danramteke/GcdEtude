@@ -1,18 +1,18 @@
-import Sleeper
+
 import FetchResult
 
 public class Fetcher {
   public let name: String
-  public let delay: Int
+  public let interval: UInt32
   
-  public init(name: String, delay: Int) {
+  public init(name: String, interval: UInt32) {
     self.name = name
-    self.delay = delay
+    self.interval = interval
   }
 
 
   public func fetch() -> FetchResult {
-    Sleeper.sleep(seconds: delay)
+
 
     let data = "data for \(self.name)"
     return FetchResult(fetcherName: self.name, data: data)

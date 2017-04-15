@@ -9,10 +9,10 @@ print("gcd etude")
 
 class Mainer {
   let fetchers = [
-    Fetcher(name: "Foo", delay: 1),
-    Fetcher(name: "Bar", delay: 1),
-    Fetcher(name: "Cow", delay: 1),
-    Fetcher(name: "Moose", delay: 1),
+    Fetcher(name: "Foo", interval: 1000000 * 4),
+    Fetcher(name: "Bar", interval: 1000000 * 4),
+    Fetcher(name: "Cow", interval: 1000000 * 4),
+    Fetcher(name: "Moose", interval: 1000000 * 4),
   ]
 
 
@@ -25,7 +25,7 @@ class Mainer {
 
   func go() {
     let fetcherSchedulers = fetchers.map() { 
-      FetcherScheduler(fetcher: $0, interval: 1000000 * 4, fetcherQueue: self.fetcherQueue, fetchResultHouse: self.fetchResultHouse)
+      FetcherScheduler(fetcher: $0, fetcherQueue: self.fetcherQueue, fetchResultHouse: self.fetchResultHouse)
     }
     for f in fetcherSchedulers {
       f.go()
