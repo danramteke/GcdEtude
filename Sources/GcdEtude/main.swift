@@ -11,10 +11,10 @@ print("gcd etude")
 class Mainer {
   let semaphore = DispatchGroup()
   let fetchers = [
-    Fetcher(name: "Foo", interval: 1000000 * 2),
-    Fetcher(name: "Bar", interval: 1000000 * 2),
-    Fetcher(name: "Cow", interval: 1000000 * 4),
-    Fetcher(name: "Moose", interval: 1000000 * 3),
+    Fetcher(name: "Foo", interval: .seconds(2)),
+    Fetcher(name: "Bar", interval: .seconds(2)),
+    Fetcher(name: "Cow", interval: .seconds(4)),
+    Fetcher(name: "Moose", interval: .seconds(3)),
   ]
 
 
@@ -26,14 +26,14 @@ class Mainer {
     print("new results delivered to mainer block \(results.count)")
   }
 
+  lazy var fetcherSchedulers: [FetcherScheduler] = {
+    return self.fetchers.map { k in
+      return FetcherScheduler(fetcher: k, fetcherQueue: self.fetcherQueue, fetchResultHouse: self.fetchResultHouse)
+    }
+  }()
 
 
   func go() {
-
-    let fetcherSchedulers: [FetcherScheduler] = fetchers.map { k in
-      return FetcherScheduler(fetcher: k, fetcherQueue: self.fetcherQueue, fetchResultHouse: self.fetchResultHouse)
-    }
-
     for f in fetcherSchedulers {
       print(f)
       

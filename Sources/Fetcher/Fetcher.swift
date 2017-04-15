@@ -1,12 +1,12 @@
 import Foundation
-
+import Dispatch
 import FetchResult
 
 public class Fetcher {
   public let name: String
-  public let interval: UInt32
+  public let interval: DispatchTimeInterval
   
-  public init(name: String, interval: UInt32) {
+  public init(name: String, interval: DispatchTimeInterval) {
     self.name = name
     self.interval = interval
   }

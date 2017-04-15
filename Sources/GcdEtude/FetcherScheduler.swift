@@ -8,18 +8,28 @@ class FetcherScheduler {
   weak var fetcherQueue: DispatchQueue?
   weak var fetchResultHouse: FetchResultHouse?
   
+  let timerQueue: DispatchQueue
+  let timer: DispatchSourceTimer
+  
   init(fetcher: Fetcher, fetcherQueue: DispatchQueue, fetchResultHouse: FetchResultHouse) {
     self.fetcher = fetcher
     self.fetcherQueue = fetcherQueue
     self.fetchResultHouse = fetchResultHouse
+    
+    self.timerQueue = DispatchQueue(label: "com.firm.app.timer", attributes: .concurrent)
+    self.timer = DispatchSource.makeTimerSource(queue: timerQueue)
   }
   
   func go() {
-    enqueueFetch()
-    while true {
-      usleep(self.fetcher.interval)  
-      enqueueFetch()
+  
+    timer.scheduleRepeating(deadline: .now(), interval: fetcher.interval, leeway: .seconds(1))
+
+    timer.setEventHandler { [weak self] in 
+      self?.enqueueFetch()
     }
+
+    timer.resume()
+
   }
   
   private func enqueueFetch() {
