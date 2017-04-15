@@ -15,10 +15,12 @@ class FetcherScheduler {
   }
   
   func go() {
+    print("go for \(self.fetcher.name)")
     enqueueFetch()
     while true {
       usleep(self.fetcher.interval)  
       enqueueFetch()
+      print("sleeping for \(self.fetcher.name)")
     }
   }
   
@@ -27,5 +29,11 @@ class FetcherScheduler {
         let result = self.fetcher.fetch()
         self.fetchResultHouse?.newResult(key: self.fetcher.name, result: result)
     }
+  }
+}
+
+extension FetcherScheduler: CustomStringConvertible {
+  var description: String {
+    return "FetcherScheduler(name: \(fetcher.name))"
   }
 }

@@ -13,7 +13,7 @@ public class Fetcher {
 
   public func fetch() -> FetchResult {
 
-
+    print("fetching \(self.name)")
     let data = "data for \(self.name)"
     return FetchResult(fetcherName: self.name, data: data)
 

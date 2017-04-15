@@ -1,17 +1,15 @@
-public protocol FetchResultHouseDelegate: class {
-  func newResults(_ results: [String: FetchResult])
-}
+
 
 public class FetchResultHouse {
   private var latestResults = [String: FetchResult]()
-  private weak var delegate: FetchResultHouseDelegate?
+  private let block: ([String: FetchResult])->Void
   
-  public init(delegate: FetchResultHouseDelegate) { 
-    self.delegate = delegate
+  public init(block: @escaping ([String: FetchResult])->Void) { 
+    self.block = block
   }
   public func newResult(key: String, result: FetchResult) {
     self.latestResults[key] = result
-    delegate?.newResults(self.latestResults)
+    block(self.latestResults)
   }
   
   
